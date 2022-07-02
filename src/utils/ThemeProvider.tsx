@@ -16,10 +16,10 @@ const Themes: Record<string, Theme> = {
   original: {
     primaryBtnColor: '#0CCA98',
     primaryBtnBackground: '#121212',
-    secondaryBtnColor: '#db9aee',
+    secondaryBtnColor: '#FFC0CB',
     secondaryBtnBackground: '#ffffff',
     primary: '#0CCA98',
-    secondary: '#db9aee',
+    secondary: '#FFC0CB',
     bgDark1: '#121212',
     bgDark2: '#2b2a2a',
     textPrimary: '#ffffff',

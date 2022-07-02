@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { Col, Container, Form } from 'react-bootstrap';
+import { Col, Container, Form, InputGroup } from 'react-bootstrap';
 import { FieldValues, useForm, Controller } from 'react-hook-form';
 import { vestResolver } from '@hookform/resolvers/vest';
 import { signupValidationSuite, SignupFormFields } from '../../utils/formValidation';
@@ -9,9 +9,13 @@ import StyledFormLabel from './StylesFormLabel';
 import StyledButton from '../StyledButton';
 import StyledFormControl from './StyledFormControl';
 import { useNavigate } from 'react-router-dom';
+import { BsFillEyeFill, BsFillEyeSlashFill } from 'react-icons/bs';
 
 const SignupForm: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(false);
+  const [hidden, setHidden] = useState<boolean>(true);
+  const [hiddenConfirm, setHiddenConfirm] = useState<boolean>(true);
+
   const navigate = useNavigate();
 
   const themeContext = useContext(ThemeContext);
@@ -33,6 +37,7 @@ const SignupForm: React.FC = () => {
   const mockAPICall = () => {
     setTimeout(() => {
       setLoading(false);
+      navigate("/home");
     }, 1000);
   };
 
@@ -74,28 +79,45 @@ const SignupForm: React.FC = () => {
             <p style={{ color: themeContext?.theme.secondary }}>{errors.email?.message}</p>
           </Form.Group>
 
-          <Form.Group className='mb-5'>
+          <Form.Group className='mb-5 w-100'>
             <StyledFormLabel color={themeContext?.theme.primary}>
               Password <span style={{ color: themeContext?.theme.secondary }}>*</span>
             </StyledFormLabel>
-            <Controller
-              name='password'
-              control={control}
-              render={({ field: { name, onChange, value, ref, onBlur } }) => {
-                return (
-                  <StyledFormControl
-                    placeholder='Enter Password'
-                    name={name}
-                    onChange={onChange}
-                    value={value}
-                    ref={ref}
-                    onBlur={onBlur}
-                    color={themeContext?.theme.primary}
-                    background={themeContext?.theme.bgDark1}
-                  />
-                );
-              }}
-            />
+            <InputGroup>
+              <Controller
+                name='password'
+                control={control}
+                render={({ field: { name, onChange, value, ref, onBlur } }) => {
+                  return (
+                    <StyledFormControl
+                      placeholder='Enter Password'
+                      name={name}
+                      onChange={onChange}
+                      value={value}
+                      ref={ref}
+                      onBlur={onBlur}
+                      color={themeContext?.theme.primary}
+                      background={themeContext?.theme.bgDark1}
+                      type={hidden ? "password" : "text"}
+                    />
+                  );
+                }}
+              />
+              <InputGroup.Text 
+                style={{
+                  background: themeContext?.theme.bgDark1,
+                  borderColor: themeContext?.theme.secondary,
+                  cursor: "pointer"
+                }}
+                onClick={() => {setHidden(!hidden)}}
+              >
+                {hidden ?
+                  <BsFillEyeSlashFill fill={themeContext?.theme.secondary} />
+                  :
+                  <BsFillEyeFill fill={themeContext?.theme.secondary} />
+                }
+              </InputGroup.Text>
+            </InputGroup>
             <p style={{ color: themeContext?.theme.secondary }}>{errors.password?.message}</p>
           </Form.Group>
 
@@ -103,24 +125,41 @@ const SignupForm: React.FC = () => {
             <StyledFormLabel color={themeContext?.theme.primary}>
               Confirm Password <span style={{ color: themeContext?.theme.secondary }}>*</span>
             </StyledFormLabel>
-            <Controller
-              name='confirmPassword'
-              control={control}
-              render={({ field: { name, onChange, value, ref, onBlur } }) => {
-                return (
-                  <StyledFormControl
-                    placeholder='Confirm Password'
-                    name={name}
-                    onChange={onChange}
-                    value={value}
-                    ref={ref}
-                    onBlur={onBlur}
-                    color={themeContext?.theme.primary}
-                    background={themeContext?.theme.bgDark1}
-                  />
-                );
-              }}
-            />
+            <InputGroup>
+              <Controller
+                name='confirmPassword'
+                control={control}
+                render={({ field: { name, onChange, value, ref, onBlur } }) => {
+                  return (
+                    <StyledFormControl
+                      placeholder='Confirm Password'
+                      name={name}
+                      onChange={onChange}
+                      value={value}
+                      ref={ref}
+                      onBlur={onBlur}
+                      color={themeContext?.theme.primary}
+                      background={themeContext?.theme.bgDark1}
+                      type={hiddenConfirm ? "password" : "text"}
+                    />
+                  );
+                }}
+              />
+              <InputGroup.Text 
+                style={{
+                  background: themeContext?.theme.bgDark1,
+                  borderColor: themeContext?.theme.secondary,
+                  cursor: "pointer"
+                }}
+                onClick={() => {setHiddenConfirm(!hiddenConfirm)}}
+              >
+                {hiddenConfirm ?
+                  <BsFillEyeSlashFill fill={themeContext?.theme.secondary} />
+                  :
+                  <BsFillEyeFill fill={themeContext?.theme.secondary} />
+                }
+              </InputGroup.Text>
+            </InputGroup>
             <p style={{ color: themeContext?.theme.secondary }}>
               {errors.confirmPassword?.message}
             </p>
