@@ -37,7 +37,7 @@ const SignupForm: React.FC = () => {
   const mockAPICall = () => {
     setTimeout(() => {
       setLoading(false);
-      navigate("/home");
+      navigate('/home');
     }, 1000);
   };
 
@@ -64,7 +64,7 @@ const SignupForm: React.FC = () => {
               render={({ field: { name, onChange, value, ref, onBlur } }) => {
                 return (
                   <StyledFormControl
-                    placeholder='Enter email'
+                    placeholder='Enter Email'
                     name={name}
                     onChange={onChange}
                     value={value}
@@ -98,24 +98,27 @@ const SignupForm: React.FC = () => {
                       onBlur={onBlur}
                       color={themeContext?.theme.primary}
                       background={themeContext?.theme.bgDark1}
-                      type={hidden ? "password" : "text"}
+                      type={hidden ? 'password' : 'text'}
                     />
                   );
                 }}
               />
-              <InputGroup.Text 
+              <InputGroup.Text
                 style={{
                   background: themeContext?.theme.bgDark1,
                   borderColor: themeContext?.theme.secondary,
-                  cursor: "pointer"
+                  cursor: 'pointer',
                 }}
-                onClick={() => {setHidden(!hidden)}}
+                onClick={() => {
+                  setHidden(!hidden);
+                }}
+                data-testid='toggle-show-password'
               >
-                {hidden ?
+                {hidden ? (
                   <BsFillEyeSlashFill fill={themeContext?.theme.secondary} />
-                  :
+                ) : (
                   <BsFillEyeFill fill={themeContext?.theme.secondary} />
-                }
+                )}
               </InputGroup.Text>
             </InputGroup>
             <p style={{ color: themeContext?.theme.secondary }}>{errors.password?.message}</p>
@@ -140,24 +143,27 @@ const SignupForm: React.FC = () => {
                       onBlur={onBlur}
                       color={themeContext?.theme.primary}
                       background={themeContext?.theme.bgDark1}
-                      type={hiddenConfirm ? "password" : "text"}
+                      type={hiddenConfirm ? 'password' : 'text'}
                     />
                   );
                 }}
               />
-              <InputGroup.Text 
+              <InputGroup.Text
                 style={{
                   background: themeContext?.theme.bgDark1,
                   borderColor: themeContext?.theme.secondary,
-                  cursor: "pointer"
+                  cursor: 'pointer',
                 }}
-                onClick={() => {setHiddenConfirm(!hiddenConfirm)}}
+                onClick={() => {
+                  setHiddenConfirm(!hiddenConfirm);
+                }}
+                data-testid='toggle-show-confirm'
               >
-                {hiddenConfirm ?
+                {hiddenConfirm ? (
                   <BsFillEyeSlashFill fill={themeContext?.theme.secondary} />
-                  :
+                ) : (
                   <BsFillEyeFill fill={themeContext?.theme.secondary} />
-                }
+                )}
               </InputGroup.Text>
             </InputGroup>
             <p style={{ color: themeContext?.theme.secondary }}>
@@ -187,7 +193,11 @@ const SignupForm: React.FC = () => {
                 </StyledButton>
               </>
             ) : (
-              <StyledSpinner animation='border' color={themeContext?.theme.primary} />
+              <StyledSpinner
+                animation='border'
+                color={themeContext?.theme.primary}
+                data-testid='signup-loading-spinner'
+              />
             )}
           </div>
         </Form>

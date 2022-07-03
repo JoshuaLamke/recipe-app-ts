@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { Col, Container, Form, FormControl, InputGroup } from 'react-bootstrap';
+import { Col, Container, Form, InputGroup } from 'react-bootstrap';
 import { FieldValues, useForm, Controller } from 'react-hook-form';
 import { vestResolver } from '@hookform/resolvers/vest';
 import { loginValidationSuite, LoginFormFields } from '../../utils/formValidation';
@@ -9,7 +9,7 @@ import StyledFormLabel from './StylesFormLabel';
 import StyledButton from '../StyledButton';
 import StyledFormControl from './StyledFormControl';
 import { useNavigate } from 'react-router-dom';
-import { BsFillEyeFill, BsFillEyeSlashFill } from "react-icons/bs";
+import { BsFillEyeFill, BsFillEyeSlashFill } from 'react-icons/bs';
 
 const LoginForm: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(false);
@@ -34,12 +34,11 @@ const LoginForm: React.FC = () => {
   const mockAPICall = () => {
     setTimeout(() => {
       setLoading(false);
-      navigate("/home");
+      navigate('/home');
     }, 1000);
   };
 
   const onSubmit = (e: FieldValues) => {
-    console.log(JSON.stringify(e));
     setLoading(true);
     mockAPICall();
   };
@@ -61,7 +60,7 @@ const LoginForm: React.FC = () => {
               render={({ field: { name, onChange, value, ref, onBlur } }) => {
                 return (
                   <StyledFormControl
-                    placeholder='Enter email'
+                    placeholder='Enter Email'
                     name={name}
                     onChange={onChange}
                     value={value}
@@ -94,25 +93,27 @@ const LoginForm: React.FC = () => {
                       onBlur={onBlur}
                       color={themeContext?.theme.primary}
                       background={themeContext?.theme.bgDark1}
-                      type={hidden ? "password" : "text"}
+                      type={hidden ? 'password' : 'text'}
                     />
                   );
                 }}
               />
-              <InputGroup.Text 
+              <InputGroup.Text
                 style={{
                   background: themeContext?.theme.bgDark1,
                   borderColor: themeContext?.theme.secondary,
-                  cursor: "pointer"
+                  cursor: 'pointer',
                 }}
-                onClick={() => {setHidden(!hidden)}}
+                onClick={() => {
+                  setHidden(!hidden);
+                }}
+                data-testid='toggle-show-password'
               >
-                {hidden ?
+                {hidden ? (
                   <BsFillEyeSlashFill fill={themeContext?.theme.secondary} />
-                  :
+                ) : (
                   <BsFillEyeFill fill={themeContext?.theme.secondary} />
-                }
-                
+                )}
               </InputGroup.Text>
             </InputGroup>
             <p style={{ color: themeContext?.theme.secondary }}>{errors.password?.message}</p>
@@ -140,7 +141,11 @@ const LoginForm: React.FC = () => {
                 </StyledButton>
               </>
             ) : (
-              <StyledSpinner animation='border' color={themeContext?.theme.primary} />
+              <StyledSpinner
+                animation='border'
+                color={themeContext?.theme.primary}
+                data-testid='login-loading-spinner'
+              />
             )}
           </div>
         </Form>
